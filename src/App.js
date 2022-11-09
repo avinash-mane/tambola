@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App" style={{ overflow: "hidden" }}>
       <Switch>
-        <Route path='/promobi-housie/tickets' component={Ticket} />
-        <Route path='/promobi-housie/card/:id' component={PlayCard} />
+        <Route path='/tambola/tickets' component={Ticket} />
+        <Route path='/tambola/tickets/:id' component={PlayCard} />
         <Route path='/' component={Main} />
       </Switch>
     </div>

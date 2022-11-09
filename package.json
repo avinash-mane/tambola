@@ -15,7 +15,7 @@
     "tambola-generator": "^1.0.0",
     "web-vitals": "^0.2.4"
   },
-  "homepage": "https://avinash-mane.github.io/promobi-housie",
+  "homepage": "https://avinash-mane.github.io/tambola",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
