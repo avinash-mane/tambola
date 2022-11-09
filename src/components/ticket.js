@@ -65,7 +65,7 @@ function Ticket() {
             {!list.length ?
                 <div className="row" style={{ height: "100vh", background: "#cccbab", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <div>
-                        <Button onClick={() => history.push("/promobi-housie")} size="sm" variant="success" className="mb-2">Home</Button>
+                        <Button onClick={() => history.push("/tambola")} size="sm" variant="success" className="mb-2">Home</Button>
                         <div>
                             <input style={{ padding: "10px" }} placeholder="enter number of players" onChange={(e) => setPlayers(e.target.value)} type="number" />
                         </div>
@@ -81,7 +81,7 @@ function Ticket() {
                     </div>
                 </div> :
                 <div style={{ background: "#cccbab" }} className="mb-5">
-                    <Button onClick={() => history.push("/promobi-housie")} size="sm" variant="success" className="mb-2">Home</Button>
+                    <Button onClick={() => history.push("/tambola")} size="sm" variant="success" className="mb-2">Home</Button>
                     <Button onClick={() => setOpenField(v => !v)} size="sm" variant="warning" className="ml-2 mb-2">Upload Ticket</Button>
                     {openField && <div>
                         <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />

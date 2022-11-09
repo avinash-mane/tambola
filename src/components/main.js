@@ -82,7 +82,7 @@ function App() {
           <Button variant="info" onClick={handleOnReset} size="sm">
             Reset
           </Button>
-          <Button className="ml-3" variant="secondary" onClick={() => history.push("/promobi-housie/tickets")} size="sm">
+          <Button className="ml-3" variant="secondary" onClick={() => history.push("/tambola/tickets")} size="sm">
             generate tickets
           </Button>
         </div>
