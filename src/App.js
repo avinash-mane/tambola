@@ -10,7 +10,7 @@ function App() {
     <div className="App" style={{ overflow: "hidden" }}>
       <Switch>
         <Route path='/tambola/tickets' component={Ticket} />
-        <Route path='/tambola/tickets/:id' component={PlayCard} />
+        <Route path='/tambola/card' component={PlayCard} />
         <Route path='/' component={Main} />
       </Switch>
     </div>

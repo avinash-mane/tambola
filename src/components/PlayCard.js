@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore"
 import { fireStore } from "../firebase";
-import { useParams } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 const colors = ["red", "green", "blue", "purple", "orange", "yellow"]
 let rows = ["top", "middle", "bottom"]
 const init = { all: 0, top: 0, bottom: 0, middle: 0, corner: 0 }
 
 function PlayCard() {
     const [list, setList] = useState([]);
-    const { id } = useParams();
     const [sets, setSets] = useState(1);
+    const [id, setId] = useState(null)
+    let tempId = null
     const [players, setPlayers] = useState(0);
     const [selectedCard, setSelectedCard] = useState([])
     const [corners, setCorners] = useState([])
@@ -59,7 +60,7 @@ function PlayCard() {
             setSelectedCard(ar)
         }
 
-    }, [list, sets, players])
+    }, [id])
 
     const onClick = (cardIndex, rowindex, colindex, col) => {
         if (col != 0) {
@@ -91,7 +92,12 @@ function PlayCard() {
 
     return (
         <>
-            {parseInt(id) && selectedCard.map((card, cardindex) => <div style={{ margin: "20px", padding: "30px", background: "#fff", border: "1px solid", width: "100%", display: "flex" }}>
+            {id === null  &&<div>
+             <input value={id} placeholder="insert you ticket id" className='m-5 p-3' onChange={(e)=>tempId=e.target.value}/>
+             <Button onClick={()=>setId(tempId)} className='m-5' variant="success">Submit</Button>
+             </div>
+             }
+            {selectedCard.map((card, cardindex) => <div style={{ margin: "20px", padding: "30px", background: "#fff", border: "1px solid", width: "100%", display: "flex" }}>
                 <div style={{ width: "70%" }}>
                     {card._entries.map((row, rowindex) =>
                         <div style={{ display: "flex", flexWrap: "wrap", margin: "0px 10px" }}>
@@ -137,7 +143,7 @@ function PlayCard() {
                     </div>
                 </div>
             </div>)}
-            {players != 0 && (parseInt(id) > players || id <= 0 )  && <h1>Card Not Found</h1>}
+            {id !==null && players != 0 && (parseInt(id) > players || id <= 0) && <h1>Card Not Found</h1>}
         </>
     );
 }
