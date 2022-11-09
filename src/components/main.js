@@ -85,6 +85,9 @@ function App() {
           <Button className="ml-3" variant="secondary" onClick={() => history.push("/tambola/tickets")} size="sm">
             generate tickets
           </Button>
+          <Button className="ml-3" variant="warning" onClick={() => history.push("/tambola/card")} size="sm">
+            Play Card
+          </Button>
         </div>
         <div style={{ fontSize: "20px" }} className="pt-2">Previous</div>
         <div style={{ width: "100px", height: "100px" }} className="d-flex align-items-center justify-content-center border border-secondary rounded-circle mb-1" >
