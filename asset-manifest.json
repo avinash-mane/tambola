@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tambola/static/css/main.ab7136cd.chunk.css",
-    "main.js": "/tambola/static/js/main.cd9449e1.chunk.js",
-    "main.js.map": "/tambola/static/js/main.cd9449e1.chunk.js.map",
+    "main.js": "/tambola/static/js/main.96934854.chunk.js",
+    "main.js.map": "/tambola/static/js/main.96934854.chunk.js.map",
     "runtime-main.js": "/tambola/static/js/runtime-main.29d2c6c2.js",
     "runtime-main.js.map": "/tambola/static/js/runtime-main.29d2c6c2.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/tambola/static/css/2.20aa2d7b.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.20aa2d7b.chunk.css",
     "static/js/2.e0ee2f1b.chunk.js",
     "static/css/main.ab7136cd.chunk.css",
-    "static/js/main.cd9449e1.chunk.js"
+    "static/js/main.96934854.chunk.js"
   ]
 }
