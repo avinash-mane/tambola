@@ -121,7 +121,7 @@ function PlayCard() {
                 <Button onClick={() => setId(tempId)} className='m-5' variant="success">Submit</Button>
             </div>
             }
-            {selectedCard.map((card, cardindex) => <div style={{ margin: "20px", padding: "20px", background: "#fff", border: "1px solid" }} className="d-sm-flex">
+            {selectedCard.map((card, cardindex) => <div style={{background: "#fff", border: "1px solid" }} className="d-sm-flex p-1 p-md-3 m-0 m-md-3">
                 <div className="w-sm-100 col-sm-9 p-0">
                     {card._entries.map((row, rowindex) =>
                         <div style={{ display: "flex", height: "30%" }}>
@@ -131,6 +131,7 @@ function PlayCard() {
                                     // flexGrow: 1,
                                     // maxWidth: "100%",
                                     width: "15%",
+                                    minWidth: "30px",
                                     border: "1px solid",
                                     display: "flex",
                                     justifyContent: "center",
