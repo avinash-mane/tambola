@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore"
 import { fireStore } from "../firebase";
 import { Button } from "react-bootstrap";
+import { useParams } from "react-router-dom"
+import claps from "../assets/clap.mp3"
+import img from "../assets/clapman.gif"
 const colors = ["red", "green", "blue", "purple", "orange", "yellow"]
 let rows = ["top", "middle", "bottom"]
 const init = { all: 0, top: 0, bottom: 0, middle: 0, corner: 0 }
@@ -9,12 +12,15 @@ const init = { all: 0, top: 0, bottom: 0, middle: 0, corner: 0 }
 function PlayCard() {
     const [list, setList] = useState([]);
     const [sets, setSets] = useState(1);
-    const [id, setId] = useState(null)
-    let tempId = null
+    const [id, setId] = useState("")
+    const { ticketId } = useParams()
+    let tempId = ""
+    const [audio, setAudio] = useState(new Audio(claps));
     const [players, setPlayers] = useState(0);
     const [selectedCard, setSelectedCard] = useState([])
     const [corners, setCorners] = useState([])
     const ticketCollectionRef = collection(fireStore, "tickets")
+    const [showGIF, setShowGIF] = useState(null)
 
     const [myCard, setMyCard] = useState([...Array(3)].map(e => Array(9).fill(null)))
     const [myCount, setMyCount] = useState([])
@@ -29,6 +35,20 @@ function PlayCard() {
         }
         getTickets()
     }, [])
+
+    useEffect(() => {
+        if (ticketId) {
+            setId(parseInt(ticketId))
+        }
+    }, [ticketId])
+
+    useEffect(() => {
+        if (showGIF) {
+            setTimeout(() => {
+                setShowGIF(null)
+            }, 3500)
+        }
+    }, [showGIF])
 
     const setconerValues = (ar) => {
         let arr = []
@@ -60,7 +80,7 @@ function PlayCard() {
             setSelectedCard(ar)
         }
 
-    }, [id])
+    }, [id, list, players, sets])
 
     const onClick = (cardIndex, rowindex, colindex, col) => {
         if (col != 0) {
@@ -87,63 +107,70 @@ function PlayCard() {
             }
             setMyCard(arr)
             setMyCount(count)
+            if (count[cardIndex].all == 15) {
+                setShowGIF(cardIndex + 1)
+                audio.play()
+            }
         }
     }
 
     return (
         <>
-            {id === null  &&<div>
-             <input value={id} placeholder="insert you ticket id" className='m-5 p-3' onChange={(e)=>tempId=e.target.value}/>
-             <Button onClick={()=>setId(tempId)} className='m-5' variant="success">Submit</Button>
-             </div>
-             }
-            {selectedCard.map((card, cardindex) => <div style={{ margin: "20px", padding: "30px", background: "#fff", border: "1px solid", width: "100%", display: "flex" }}>
-                <div style={{ width: "70%" }}>
+            {id === "" && <div>
+                <input placeholder="insert you ticket id" className='m-5 p-3' onChange={(e) => tempId = e.target.value} />
+                <Button onClick={() => setId(tempId)} className='m-5' variant="success">Submit</Button>
+            </div>
+            }
+            {selectedCard.map((card, cardindex) => <div style={{ margin: "20px", padding: "20px", background: "#fff", border: "1px solid" }} className="d-sm-flex">
+                <div className="w-sm-100 col-sm-9 p-0">
                     {card._entries.map((row, rowindex) =>
-                        <div style={{ display: "flex", flexWrap: "wrap", margin: "0px 10px" }}>
+                        <div style={{ display: "flex", height: "30%" }}>
                             {row.map((col, colindex) => <button
                                 style={{
-                                    lexBasis: 0,
-                                    flexGrow: 1,
+                                    // lexBasis: 0,
+                                    // flexGrow: 1,
                                     // maxWidth: "100%",
-                                    width: "40px",
+                                    width: "15%",
                                     border: "1px solid",
-                                    height: "70px",
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
                                     fontSize: "20px",
+                                    padding: "2%",
                                     background: col ? (myCard[cardindex][rowindex][colindex] ? "#6c757d" : "#fff") : colors[cardindex],
                                     cursor: col ? "pointer" : "unset",
-                                    textDecoration: myCard[cardindex][rowindex][colindex] ? "line-through" : "none"
+                                    textDecoration: myCard[cardindex][rowindex][colindex] ? "line-through" : "none",
+                                    textDecorationThickness: myCard[cardindex][rowindex][colindex] ? "1px" : "none"
                                 }}
                                 onClick={(e) => onClick(cardindex, rowindex, colindex, col)}>
                                 {col || " "}</button>)}
                         </div>)
                     }
                 </div>
-                <div style={{ textAlign: "left", marginLeft: "10px", fontSize: "20px", fontWeight: "600" }}>
-                    <div style={{ padding: "3px" }}>
-                        Early 5: {myCount[cardindex].all >= 5 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                    <div style={{ padding: "3px" }}>
-                        Top Line: {myCount[cardindex].top == 5 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                    <div style={{ padding: "3px" }}>
-                        Middle Line: {myCount[cardindex].middle == 5 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                    <div style={{ padding: "3px" }}>
-                        Bottom Line: {myCount[cardindex].bottom == 5 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                    <div style={{ padding: "3px" }}>
-                        Four Corners: {myCount[cardindex].corner == 4 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                    <div style={{ padding: "3px" }}>
-                        Full House 1: {myCount[cardindex].all == 15 ? <>&#x2705;</> : <>&#10060;</>}
-                    </div>
-                </div>
+                {myCount[cardindex].all == 15 ?
+                    showGIF == cardindex + 1 && <img src={img} height="180px" className="p-2"></img> :
+                    <div style={{ textAlign: "left", marginLeft: "10px", fontSize: "14px", fontWeight: "600" }}>
+                        <div style={{ padding: "3px" }}>
+                            Early 5: {myCount[cardindex].all >= 5 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                        <div style={{ padding: "3px" }}>
+                            Top Line: {myCount[cardindex].top == 5 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                        <div style={{ padding: "3px" }}>
+                            Middle Line: {myCount[cardindex].middle == 5 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                        <div style={{ padding: "3px" }}>
+                            Bottom Line: {myCount[cardindex].bottom == 5 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                        <div style={{ padding: "3px" }}>
+                            Four Corners: {myCount[cardindex].corner == 4 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                        <div style={{ padding: "3px" }}>
+                            Full House 1: {myCount[cardindex].all == 15 ? <>&#x2705;</> : <>&#10060;</>}
+                        </div>
+                    </div>}
             </div>)}
-            {id !==null && players != 0 && (parseInt(id) > players || id <= 0) && <h1>Card Not Found</h1>}
+            {id !== "" && players != 0 && (parseInt(id) > players || id <= 0) && <h1>Card Not Found</h1>}
         </>
     );
 }

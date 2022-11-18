@@ -43,14 +43,14 @@ function App() {
         let number = Math.floor(Math.random() * (91 - 1) + 1)
         if (!list.includes(number)) {
           setIsWating(true)
-          audio.play()
+          // audio.play()
           flag = false
           setTimeout(() => {
             clearInterval(intervalId)
             setList([...list, number])
             setIsWating(false)
-            audio.remove()
-          }, 3600)
+            // audio.remove()
+          }, 2000)
         }
       }
     }
@@ -68,7 +68,7 @@ function App() {
       </div>)
 
       if (i % 10 === 0) {
-        tempList.push(<div className="row" style={{ margin: "0px", width: "90px", borderLeft: "1px solid #fff", borderRight: "1px solid" }}>{row}</div>)
+        tempList.push(<div className="row" style={{ margin: "0px", width: "auto", borderLeft: "1px solid #fff", borderRight: "1px solid" }}>{row}</div>)
         row = []
       }
     }
@@ -119,10 +119,10 @@ function App() {
           {wins.map(label => <FormCheck style={{ width: "120px", textAlign: "left" }} className="p-2" label={label} />)}
         </div>
       </div>
-      <div className="col pt-2" style={{ height: "100%", backgroundColor: "#adb5bd", borderLeft: "1px solid" }}>
+      <div className="col-9 pt-2" style={{ height: "100%", backgroundColor: "#adb5bd", borderLeft: "1px solid" }}>
         <div>
           <h1><b>Better Luck Next Time...!</b></h1>
-          <div class="d-flex mx-5 mb-5 bg-dark w-75" style={{ borderColor: "#adb5bd",border:"5px solid #d5e4f3" }}>
+          <div class="d-flex mx-5 mb-5 bg-dark" style={{ borderColor: "#adb5bd",border:"5px solid #d5e4f3" }}>
             <Board />
           </div>
         </div>
