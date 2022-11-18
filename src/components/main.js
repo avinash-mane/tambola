@@ -82,10 +82,10 @@ function App() {
           <Button variant="info" onClick={handleOnReset} size="sm">
             Reset
           </Button>
-          <Button className="ml-3" variant="secondary" onClick={() => history.push("/tambola/tickets")} size="sm">
+          <Button className="ml-3" variant="secondary" onClick={() => history.push("/tickets")} size="sm">
             generate tickets
           </Button>
-          <Button className="ml-3" variant="warning" onClick={() => history.push("/tambola/card")} size="sm">
+          <Button className="ml-3" variant="warning" onClick={() => history.push("/card")} size="sm">
             Play Card
           </Button>
         </div>
