@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Spinner, FormCheck } from "react-bootstrap";
 import { useHistory } from 'react-router-dom';
 import sound from "../assets/spin.mp3"
+import VerifyCard from "./VerifyCard";
 const wins = [
   "Early 5",
   "Top Line",
@@ -11,12 +12,17 @@ const wins = [
   "Full House 1",
   " Full House 2"
 ]
+
 function App() {
   const [list, setList] = useState([]);
   const [isWating, setIsWating] = useState(false);
   const [spinner, setSpiner] = useState(1);
   const [audio, setAudio] = useState(new Audio(sound));
   const history = useHistory();
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const onOpenDialog = () => setOpenDialog(true)
+
 
   useEffect(() => {
     if (list.length) localStorage.setItem("numbers", JSON.stringify(list))
@@ -88,6 +94,9 @@ function App() {
           <Button className="ml-3" style={{ zIndex: 1 }} variant="warning" onClick={() => history.push("/card")} size="sm">
             Play Card
           </Button>
+          <Button className="ml-3" style={{ zIndex: 1 }} variant="danger" onClick={onOpenDialog} size="sm">
+            Verify Card
+          </Button>
         </div>
         <div style={{ fontSize: "20px" }} className="pt-2">Previous</div>
         <div style={{ width: "100px", height: "100px" }} className="d-flex align-items-center justify-content-center border border-secondary rounded-circle mb-1" >
@@ -127,6 +136,7 @@ function App() {
           </div>
         </div>
       </div>
+      <VerifyCard openDialog={openDialog} setOpenDialog={setOpenDialog} list={list}/>
     </div>
   );
 }

@@ -91,7 +91,6 @@ function PlayCard() {
                 count[cardIndex].all = myCount[cardIndex].all + 1
                 count[cardIndex][rows[rowindex]] = myCount[cardIndex][rows[rowindex]] + 1
 
-
                 if (corners[cardIndex].includes(col)) {
                     count[cardIndex].corner = myCount[cardIndex].corner + 1
                 }
