@@ -114,12 +114,13 @@ function PlayCard() {
     }
 
     return (
-        <>
+        <div style={{background: "peru"}}>
             {id === "" && <div>
                 <input placeholder="insert you ticket id" className='m-5 p-3' onChange={(e) => tempId = e.target.value} />
                 <Button onClick={() => setId(tempId)} className='m-5' variant="success">Submit</Button>
             </div>
             }
+            {id && <h2>Ticket : {id}</h2>}
             {selectedCard.map((card, cardindex) => <div style={{background: "#fff", border: "1px solid" }} className="d-sm-flex p-1 p-md-3 m-0 m-md-3">
                 <div className="w-sm-100 col-sm-9 p-0">
                     {card._entries.map((row, rowindex) =>
@@ -171,7 +172,7 @@ function PlayCard() {
                     </div>}
             </div>)}
             {id !== "" && players != 0 && (parseInt(id) > players || id <= 0) && <h1>Card Not Found</h1>}
-        </>
+        </div>
     );
 }
 

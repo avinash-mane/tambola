@@ -36,13 +36,13 @@ function VerifyCard({ openDialog, setOpenDialog, list }) {
         getTickets()
     }, [])
 
-    useEffect(()=>{
-        if(id && color){
+    useEffect(() => {
+        if (id && color) {
             let b = parseInt(id - 1) * onlineCards.sets
             let a = colors.indexOf(color)
             setSelectedCard(onlineCards.list[a + b])
         }
-    },[id, color])
+    }, [id, color])
 
     const changeColor = (e) => setColor(e.target.value)
 
@@ -53,7 +53,7 @@ function VerifyCard({ openDialog, setOpenDialog, list }) {
                     <input className="mr-3 p-1" style={{ width: "100px" }} placeholder="card id" onChange={(e) => setId(e.target.value)} type="number" />
                     <label className="mr-2">select Color : </label>
                     <select onChange={changeColor} className="px-2 py-1" >
-                        {colors.map((c,index) => index < onlineCards.sets && <option value={c} style={{ background: c }} >{c}</option>)}
+                        {colors.map((c, index) => index < onlineCards.sets && <option value={c} style={{ background: c }}>{c}</option>)}
                     </select>
                 </div>
             </div>
